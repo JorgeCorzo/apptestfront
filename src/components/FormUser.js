@@ -20,8 +20,8 @@ const validate = values => {
     }
     if (!values.age) {
         errors.age = 'Debe ingresar un dato'
-    } else if (values.age < 18  || values.age > 100) {
-        errors.age= 'La edad debe ser mayor a 18 años y menor a 100 años'
+    } else if (values.age < 18 || values.age > 100) {
+        errors.age = 'La edad debe ser mayor a 18 años y menor a 100 años'
     }
     return errors
 }
@@ -37,10 +37,16 @@ const renderField = ({ input, label, placeholder, type, meta: { touched, error, 
 )
 
 let FormUser = props => {
-    const { handleSubmit } = props;
+    const { handleSubmit, status } = props;
 
     return (
         <form onSubmit={handleSubmit} className="style-form">
+            <div className="row width-row">
+                <div className="col-50">
+                    <label className="text-label-welcome">Hola bienvenido sabemos que quieres viajar en un {status}. Por favor diligencia el siguiente formulario:</label>
+                </div>
+            </div>
+
             <div className="row">
                 <Field name="name" component={renderField} type="text" label='Nombre' />
             </div>

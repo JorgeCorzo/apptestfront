@@ -4,6 +4,7 @@ import FormUser from '../../components/FormUser';
 
 function Item3() {
   const [persons, setPersons] = useState([])
+  const [item, setItem] = useState('')
 
   useEffect(() => {
     async function fetchData() {
@@ -11,6 +12,7 @@ function Item3() {
         let res = await fetch('https://enigmatic-dawn-92117.herokuapp.com/api/menuid?id=3')
         let data = await res.json()
         setPersons(data.humans)
+        setItem(data.name)
       } catch (error) {
         throw error
       }
@@ -21,6 +23,7 @@ function Item3() {
   async function submitPerson(values) {
     var res = values.email.split("@")
     values.nickname = res[0]
+    values.menu_id = 3
 
     try {
       let config = {
@@ -31,9 +34,13 @@ function Item3() {
         },
         body: JSON.stringify(values)
       }
-      let res = await fetch('https://enigmatic-dawn-92117.herokuapp.com/api/menu/human', config)
+      let res = await fetch('https://enigmatic-dawn-92117.herokuapp.com/api/human', config)
       let data = await res.json()
-      console.log(data)
+      if(data){
+        let res1 = await fetch('https://enigmatic-dawn-92117.herokuapp.com/api/menuid?id=3')
+        let data1 = await res1.json()
+        setPersons(data1.humans)
+      }
     } catch (error) {
       throw error
     }
@@ -60,7 +67,7 @@ function Item3() {
     <section className="container">
       <div className="midth-cont">
         <div className="form-item">
-          <FormUser onSubmit={submitPerson} />
+          <FormUser onSubmit={submitPerson} status={item}/>
         </div>
         <div className="table-item">
           <ReactTable

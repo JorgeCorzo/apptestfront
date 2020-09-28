@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Route, HashRouter } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import Item1 from './views/item1/Item1';
 import Item2 from './views/item2/Item2';
 import Item3 from './views/item3/Item3';
